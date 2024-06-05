@@ -35,37 +35,36 @@ In the GitHub repository, create a new folder named `.github/workflows`. This is
 Inside the `workflows` folder, create a new file named `dockerhub-push.yml`. This file will contain the configuration for the Docker build workflow.
 
 ```
-name: Build and Push Docker image to Docker Hub
+name: Build and Push Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  push_to_registry:
-    name: Push Docker image to Docker Hub
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-      
-    - name: Login to Docker Hub
-        uses: docker/login-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-    
-    - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
         with:
-          context: DockerFileFolder/
+          context: .
           push: true
-          tags: rekhugopal/testrepo:latest
+          tags: kwameds/portfolio_webapp:1.1.0
 ```
 
 This workflow will be triggered on push and pull request events to the `main` branch. It performs the following steps:
@@ -126,9 +125,10 @@ Verification from Docker Desktop:<p>
 
 Next, we will run the Docker Image Locally. This is to test the image locally to ensure it works correctly.
 ```
-docker run -d -p 8080:8080 --name mycvwebapp kwameds/mycvwebapp:1.0.0
+docker run -d -p 8080:8080 --name portfolio-webapp kwameds/portfolio-webapp:1.0.0
 ```
 ![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/1da0264b-43fd-432e-8092-0c6364669e98)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/dbf1a754-9f8a-4b9c-9aea-2d33986ac648)<p>
 
 The application access at http://localhost:80.<p>
 ![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/9fb6a408-e23a-4900-9c19-978cde31653d)<p>
@@ -138,25 +138,23 @@ The application access at http://localhost:80.<p>
 ![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/f16372fc-1d9f-4630-b33b-3d0839a16642)<p>
 
 
-It will be good to push this image to my docker hub repository so that we can compare this image to the one built with automation - GitHub actions pipeline. <p>
+Next, I will push this image to my docker hub repository so that we can compare this image to the one built with automation - GitHub actions pipeline. <p>
 I will log into my Docker Hub account from the terminal.
 ```
 docker login
 ```
 Then push the image to Docker Hub:<p>
 ```
-docker push kwameds/mycvwebapp:1.0.0
+docker push kwameds/portfolio-webapp:1.0.0
 ```
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/4fd4e6f8-69b0-4601-9035-c3666c6c0c7f)<p>
 Imaged has been pushed successfully.<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/72e672ca-5841-4736-8927-11445b3d9702)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/d2c3bde6-a1d9-4ff2-b05b-99d879aecfbd)<p>
+
 Let us get a confirmation from Docker Hub. <p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/39e8d72b-31a3-4f31-8909-e00a6764dea9)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/8b55a231-7903-4357-bb6b-32dc18c0206c)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/9b8f606a-c9ad-42dc-9d5c-7775dcc1b8a5)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/a2bfd12b-4ef1-44f4-9fb4-68c8d5db96d7)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/b6563afc-2bee-41cc-ab4e-bc033eb04f3d)<p>
 
-
-### 7. Run the GitHub Actions Workflow
+### 8. Automate the deployment process with a GitHub CI/CD Pipeline 
 
 2. Add the changes and commit
 ```
@@ -167,7 +165,7 @@ git commit -m "Added configuration files"
 ```
 git push origin main
 ```
-Commit and push the changes to the `main` branch of your GitHub repository. This will trigger the `docker-build.yml` workflow, which will automatically build and push your Docker image to the GitHub Container Registry.In the "Actions" tab of the GitHub repository, we can monitor the progress and check the status of the workflow run.<p>
+Commit and push the changes to the `main` branch of your GitHub repository. This will trigger the `actions.yml` workflow, which will automatically build and push your Docker image to the GitHub Container Registry. In the `Actions` tab of the GitHub repository, we can monitor the progress and check the status of the workflow run.<p>
 
 The pipeline actions has been executed:<p>
 ![workflow1](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/17403ab6-559a-44f7-9c19-3cb3b811fa2e)<p>
