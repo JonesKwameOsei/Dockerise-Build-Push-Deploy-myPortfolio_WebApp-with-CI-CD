@@ -168,56 +168,60 @@ git push origin main
 Commit and push the changes to the `main` branch of your GitHub repository. This will trigger the `actions.yml` workflow, which will automatically build and push your Docker image to the GitHub Container Registry. In the `Actions` tab of the GitHub repository, we can monitor the progress and check the status of the workflow run.<p>
 
 The pipeline actions has been executed:<p>
-![workflow1](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/17403ab6-559a-44f7-9c19-3cb3b811fa2e)<p>
-![workflow2](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/34de5e66-5437-496c-a152-8d43a3a8f7ac)<p>
-![workflow3](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/c6e5832e-7bd7-4f28-8f9c-68e69f7d0839)<p>
-![workflow4](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/e619c1ed-babf-406e-ba62-6361563817ad)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/f7800154-04cc-47db-8199-8e32c1e436f5)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/774cf5a0-c38b-4825-9994-794aa7756ea7)<p>
 
 GitHub action completed. We will confirm if the the image is in the `Docker Hub` registry. 
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/0e101d3d-c3e3-4929-81b2-146142fb0108)<p>
 Image in docker hub.<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/24ab17e0-045b-43de-a8a6-e85a8f123690)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/9cac5376-ae6d-4454-9a9e-78a9b6f2689d)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/eda93fcc-321a-4b01-80c7-b4f7faf45a19)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/dddf2fb6-5888-4877-8b8d-77965917e5be)<p>
+
 
 ### Test the New Image
 Having automatically build and pushed the image to Docker Hub, it is important to run the application to verify if it is working. Run:
 ```
-docker run -d -p 8081:8080 --name newCVapp kwameds/mycv_webapp:2.0.0
+docker run -d -p 81:80 --name newPortfolioapp kwameds/portfolio_webapp:1.1.0
 ```
-Docker pulled the image from my repo in the Docker Hub registry as it couldn't find the image locally. Docker goes ahead to run a container based on that image. The `-d` option runs the container in detached mode, `-p 8081:8080` maps the `host's port 8081` to the `container's port 8080`, and `--name newCVapp` assigns the name **newCVapp** to the container.<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/6c4c691c-ba28-4537-8762-a3a93288a4f9)<p>
+Docker pulled the image from my repo in the Docker Hub registry as it couldn't find the image locally. Docker goes ahead to run a container based on that image. The `-d` option runs the container in detached mode, `-p 8081:8080` maps the `host's port 81` to the `container's port 80`, and `--name newPortfolioapp` assigns the name **newCVapp** to the container.<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/6f73087a-bd34-4b33-904c-2c1ee6404c4c)<p>
+
 Let us confirm if the image is now in our local registry by running:
 ```
 docker images        # lists all images
 docker ps            # lists containers running
 ```
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/8167e1df-968e-4061-ab5d-28df771662ae)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/13f8cb74-a05c-4be2-a7d8-cff6c75adb04)<p>
+
 Next, We will view the web app in the browser by typing: `http://localhost:8081`. <p>
 The web page is accessible: <p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/47d9669b-6966-44b3-a3ce-d10e15f1267a)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/b12bf5b8-014e-4427-8c97-5cd0fb8f11a4)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/8c838419-cf0d-4efe-ad53-94175172cb28)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/77142a96-8f4f-4f29-9399-f59889ffe369)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/2413cf0b-334a-44e6-a96c-d148daeb90ad)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/2e5cfc1f-4f34-418e-8bcb-9e2d45401cea)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/0029ba03-98ae-4598-ab05-273163f495bc)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/6078e7ef-b9eb-45f8-bb8b-968baf013578)
 
 ### Modify the codebase and Apply Continous Integration to Build and Push Updates
-The web app has been tested and it is working as expected. However, there there are some updates that needs to be done. In the privacy page, it can be observed that the point no.6 states the website may have external links. This needs to be updated because there are no external links. <p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/59bae05c-d927-467b-b6d3-a8ceaa73bded)<p>
-Privacy policy updated and the continuous integration pipeline executed.<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/c75148d0-8a15-413d-8c7f-30ef3daf13ac)<p>
+I will change the **professional summary** under `Intro` from: "A DevOps Engineer proficient in Linux, Git & Github, Jenkins, Python, Bash scripting, Terraform, Kubernetes, Docker, Ansible, AWS, Azure and more...", To: "An experienced DevOps Engineer proficient in Linux, Git & Github, Jenkins, Python, Bash scripting, Terraform, Kubernetes, Docker, Ansible, AWS, Azure and more...". Here, I have updated the app version to V1.2.0. 
+
+Professional summary updated and the continuous integration pipeline executed.<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/4dc4470e-0e14-4d0d-b0b0-dc5a10ba0da6)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/506a99a8-0e22-4824-a36f-b6352cb07045)<p>
+
 Image pushed to my repo in Docker Hub regisry.<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/b7fc0072-f5f7-4d41-8ed9-f8c7e1ab2809)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/11a6626d-eb5d-4a14-94c3-55df324ac6e6)<p>
+
 Run image and view in the browser to confirm the update. <p> 
 ```
-docker run -d -p 8082:8080 --name UpdatedCVapp kwameds/mycv_webapp:2.1.0
+docker run -d -p 82:80 --name UpdatedPortfolioapp kwameds/portfolio_webapp:1.2.0
 ```
 Image pulled and container created:<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/765b4ff1-bca7-46c8-bc51-f220087486e6)<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/ea675287-6af5-4282-8765-1dcf10f6742b)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/78b800df-d501-43da-80bf-c720b70f2a04)<p>
 
-The web application is accessible:<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/24d90a1d-d589-404e-9540-6916e7097c61)<p>
-Privacy policy is updated:<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/6f55f56c-e9f1-430f-9030-f24d354c97ed)<p>
+The web application is accessible with `update`:<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/d4805328-2c66-480b-9c3c-1ae90664ecc1)<p>
+
 
 ## Conclusion
-By leveraging GitHub Actions, I have seamlessly integrated Docker into a development pipeline. This approach allow us to automatically build and push Docker images to a registry, ensuring that the deployments are consistent and up-to-date with the latest changes to the codebase. This setup provides a reliable and efficient way to manage the Docker-based applications.
+I have successfully integrated Docker into a development pipeline using `GitHub Actions`. This method enables automated build and push Docker images to a registry, ensuring that deployments are consistent and always reflect the latest code changes. This setup offers a dependable and effective way to handle Docker-based applications.
+
+## What is Next?
+Having completed the builds, I will deploy these dockerised applications (CV and Portfolio web apps) with `K8s`. 
