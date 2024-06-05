@@ -110,83 +110,33 @@ The configuration should look like this:<p>
 ### 7. Manually build and Push the Docker Image Locally
 Open a terminal, navigate to the directory containing the Dockerfile, and build the Docker image.
 ```
-docker build -t kwameds/mycvwebapp:1.0.0 .
+docker build -t kwameds/portfolio-webapp:1.0.0 . 
 ```
 Image is built:<p>
-```
-[+] Building 569.1s (18/18) FINISHED                                docker:default
- => [internal] load build definition from Dockerfile                          0.1s
- => => transferring dockerfile: 904B                                          0.0s 
- => [internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0             1.0s 
- => [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:8.0          0.9s 
- => [internal] load .dockerignore                                             0.0s
- => => transferring context: 464B                                             0.0s 
- => [build 1/7] FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:1e0c55b0ae732  554.6s 
- => => resolve mcr.microsoft.com/dotnet/sdk:8.0@sha256:1e0c55b0ae732f333818f  0.0s
- => => sha256:4369f7f50afbe743842fb8431f68ba4c280217854a4 15.73MB / 15.73MB  53.8s 
- => => sha256:9cca61ea7dcde9e148fce1ff995332d2ad533b2d 183.59MB / 183.59MB  472.2s 
- => => sha256:843791b459d2398954cec1204e9d601346fcc7793fc 30.69MB / 30.69MB  83.2s 
- => => extracting sha256:843791b459d2398954cec1204e9d601346fcc7793fcbc522033  0.6s 
- => => extracting sha256:9cca61ea7dcde9e148fce1ff995332d2ad533b2d4c5927d344d  2.5s 
- => => extracting sha256:4369f7f50afbe743842fb8431f68ba4c280217854a444db13a5  0.3s 
- => [base 1/2] FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:a22d22bcedc  105.5s 
- => => resolve mcr.microsoft.com/dotnet/aspnet:8.0@sha256:a22d22bcedc67df31b  0.0s 
- => => sha256:026220c9919398c3ac236b91cbf15c448fb5383eed7 11.03MB / 11.03MB  37.4s 
- => => sha256:fb5d00a9ff0e9f7f92e11503fbbdf16143ca63c8c357d82841 153B / 153B  0.8s 
- => => sha256:4ede38c3f6aeccac1e49f0cee1f685968f6502c801 32.23MB / 32.23MB  104.7s 
- => => sha256:cc7f450a69e27d8e92017b26b10f914c0adbde22f39dea 3.28kB / 3.28kB  1.0s 
- => => sha256:09f376ebb190216b0459f470e71bec7b5dfa611d66b 29.15MB / 29.15MB  88.8s 
- => => sha256:898e6be7b1d63a481b0a404455fe5b3c65450c37074 18.52MB / 18.52MB  78.2s 
- => => extracting sha256:09f376ebb190216b0459f470e71bec7b5dfa611d66bf008492b  0.7s 
- => => extracting sha256:898e6be7b1d63a481b0a404455fe5b3c65450c37074a0e386d3  0.3s 
- => => extracting sha256:cc7f450a69e27d8e92017b26b10f914c0adbde22f39dead838e  0.0s 
- => => extracting sha256:4ede38c3f6aeccac1e49f0cee1f685968f6502c801605dd4538  0.4s 
- => => extracting sha256:fb5d00a9ff0e9f7f92e11503fbbdf16143ca63c8c357d828412  0.0s 
- => => extracting sha256:026220c9919398c3ac236b91cbf15c448fb5383eed772379acf  0.1s 
- => [internal] load build context                                             0.8s 
- => => transferring context: 16.63MB                                          0.7s 
- => [base 2/2] WORKDIR /app                                                   0.6s 
- => [final 1/2] WORKDIR /app                                                  0.0s 
- => [build 2/7] WORKDIR /src                                                  1.1s 
- => [build 3/7] COPY [myWebCVApp/myWebCVApp.csproj, myWebCVApp/]              0.0s 
- => [build 4/7] RUN dotnet restore "./myWebCVApp/myWebCVApp.csproj"           3.9s 
- => [build 5/7] COPY . .                                                      0.1s 
- => [build 6/7] WORKDIR /src/myWebCVApp                                       0.0s 
- => [build 7/7] RUN dotnet build "./myWebCVApp.csproj" -c Release -o /app/bu  5.2s 
- => [publish 1/1] RUN dotnet publish "./myWebCVApp.csproj" -c Release -o /ap  2.1s 
- => [final 2/2] COPY --from=publish /app/publish .                            0.1s 
- => exporting to image                                                        0.5s 
- => => exporting layers                                                       0.4s 
- => => exporting manifest sha256:458dae421596fdd372d413e651b829acb1d3eeb93ae  0.0s 
- => => exporting config sha256:76ef9ba27503224cac6394aabcde92b83d56fc04a9605  0.0s 
- => => exporting attestation manifest sha256:23aa0b687d5e7b874cb8e3b9d312acc  0.0s 
- => => exporting manifest list sha256:26af15f605adebd95eae2e82c44b8919e151ef  0.0s 
- => => naming to docker.io/kwameds/mycvwebapp:1.0.0                           0.0s 
- => => unpacking to docker.io/kwameds/mycvwebapp:1.0.0                        0.1s 
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/61f750af-fc3a-4d57-8b67-f307f9bee88b)<p>
 
-View build details: docker-desktop://dashboard/build/default/default/hcmeaq9cb3mq23pliwjm1o0z9
-
-What's Next?
-  View a summary of image vulnerabilities and recommendations → docker scout quickview
-```
 We can verify from on Docker CLI if the image is actually built. To do this, run:
 ```
 docker images
 ```
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/abedb5d2-e476-497e-9fc9-2a32433ea236)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/1cd840e4-a661-41d2-941d-48ff244cfb44)<p>
+
 Verification from Docker Desktop:<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/5f2a882c-293e-49f7-be4d-4e75d4f20970)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/6ffef5ee-d6c0-4234-8510-31cbc6296a60)<p>
 
 Next, we will run the Docker Image Locally. This is to test the image locally to ensure it works correctly.
 ```
-docker run -d -p -- name mycvwebapp 8080:8080 kwameds/mycvwebapp:1.0.0
+docker run -d -p 8080:8080 --name mycvwebapp kwameds/mycvwebapp:1.0.0
 ```
-The application access at http://localhost:8080.<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/4a6a6940-c4a4-4442-b769-3e4c6fb7b2c3)<p>
-The `Home Page` is live:<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/d50e3c87-6013-4e4a-ba9c-4e94ec229905)<p>
-The **CV** page can be viewed when a user clicks on the `CV` tab at the top:<p>
-![image](https://github.com/JonesKwameOsei/myCV_WebApp/assets/81886509/0cedbdd5-c2df-42a3-80f8-ff4047b8640c)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/1da0264b-43fd-432e-8092-0c6364669e98)<p>
+
+The application access at http://localhost:80.<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/9fb6a408-e23a-4900-9c19-978cde31653d)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/73cb42c5-cb18-4d37-842c-d72cb9e411f3)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/8807b0d5-6860-4192-b98b-1660ec132e7a)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/88e23d9b-4c7c-4594-9f63-82fccd65b89c)<p>
+![image](https://github.com/JonesKwameOsei/Dockerise-Build-Push-Deploy-with-CI-CD/assets/81886509/f16372fc-1d9f-4630-b33b-3d0839a16642)<p>
+
 
 It will be good to push this image to my docker hub repository so that we can compare this image to the one built with automation - GitHub actions pipeline. <p>
 I will log into my Docker Hub account from the terminal.
