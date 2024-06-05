@@ -1,10 +1,11 @@
+# Name of the Pipeline
 name: Build and Push Docker Image CI
 
 on:
   push:
     branches:
       - main
-
+# This is a single job
 jobs:
   build:
     runs-on: ubuntu-latest
