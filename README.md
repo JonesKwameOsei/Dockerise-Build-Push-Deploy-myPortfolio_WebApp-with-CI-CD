@@ -222,6 +222,3 @@ The web application is accessible with `update`:<p>
 
 ## Conclusion
 I have successfully integrated Docker into a development pipeline using `GitHub Actions`. This method enables automated build and push Docker images to a registry, ensuring that deployments are consistent and always reflect the latest code changes. This setup offers a dependable and effective way to handle Docker-based applications.
-
-## What is Next?
-Having completed the builds, I will deploy these dockerised applications (CV and Portfolio web apps) with `K8s`. 
